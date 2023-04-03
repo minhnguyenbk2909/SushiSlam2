@@ -12,6 +12,7 @@ private:
     std::vector<Card*> cards;
 
 public:
+    ~CardCollection();
     CardCollection* add(Card* card, int num = 1);
     void remove(Card* card);
     std::string toString() const;

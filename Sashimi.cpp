@@ -9,6 +9,7 @@ int Sashimi::score(CardCollection* tableau, CardCollection* other) const
 {
     int count = 0;
     for (int i = 0; i < tableau->size(); i++)
-        count += 1;
+        if (tableau->getCard(i)->type() == SashimiType)
+            count += 1;
     return (count / 3) * 10;
 }

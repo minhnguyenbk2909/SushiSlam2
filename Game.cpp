@@ -5,6 +5,7 @@
 #include "Nigiri.h"
 #include "Sashimi.h"
 #include "Tempura.h"
+#include <sstream>
 
 Game::~Game()
 {
@@ -46,9 +47,17 @@ void Game::addCardsToDeck()
     deck->add(new MakiRoll2(), MakiRoll2Count)->add(new MakiRoll3(), MakiRoll3Count)->add(new MakiRoll1(), MakiRoll1Count);
     deck->add(new Dumpling(), DumplingCount);
 }
+void test()
+{
+    CardCollection g1, g2;
+    g1.add(new Dumpling(),5)->add(new Tempura(),2);
+    g2.add(new MakiRoll2(),3)->add(new NigiriSalmon(),3);
+    std::cout << "\n" << g1.calculate(&g1, &g2) << " " << g2.calculate(&g2,&g1);
+}
 void Game::begin(const int MAX_ROUNDS)
 {
     printLogo();
+    // test();
     round = 1;
     std::cout << "~~~ round " << round << '/' << MAX_ROUNDS << " ~~~" << std::endl;
     while (1)
@@ -89,14 +98,17 @@ void Game::printPlayerCards(Player* p)
 }
 int Game::getInput(int maxRange)
 {
-    while (1)
+    int res = 0;
+    std::string line;
+    while (std::getline(std::cin, line))
     {
-        int res = 0;
-        std::cin >> res;
-        if (std::cin.good())
-            if (res > 0 && res <= maxRange)
-                return res;
+        std::stringstream ss(line);
+        if (ss >> res)
+            if (ss.eof())
+                if (res>0 && res<=maxRange)
+                    break;
     }
+    return res;
 }
 void Game::askForCard(Player* p)
 {

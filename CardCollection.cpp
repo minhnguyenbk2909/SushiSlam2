@@ -62,7 +62,7 @@ int CardCollection::calculate(CardCollection* tableau, CardCollection* other) co
     int total = 0;
     for (int i = 0; i < 5; i++)
         if (typ[i] >= 0)
-            total += cards[i]->score(tableau, other);
+            total += cards[typ[i]]->score(tableau, other);
     return total;
 }
 Card* CardCollection::getCard(int index)
@@ -72,4 +72,9 @@ Card* CardCollection::getCard(int index)
 int CardCollection::size()
 {
     return cards.size();
+}
+CardCollection::~CardCollection()
+{
+    for (int i = 0; i < cards.size();i++)
+        delete cards[i];
 }

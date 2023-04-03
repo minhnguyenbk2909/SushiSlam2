@@ -21,6 +21,5 @@ int Dumpling::score(CardCollection* tableau, CardCollection* other) const
         return 3;
     else if (count == 1)
         return 1;
-    else
-        return 0;
+    return 0;
 }
