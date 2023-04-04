@@ -47,3 +47,10 @@ void Player::setHand(CardCollection* hand)
 {
     this->hand = hand;
 }
+void Player::setScore(const int score)
+{
+    this->score = score;
+}
+int Player::getScore() const {
+    return score;
+}

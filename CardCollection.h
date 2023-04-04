@@ -20,6 +20,7 @@ public:
     int calculate(CardCollection* tableau, CardCollection* other) const;
     Card* getCard(int index);
     int size();
+    void clear();
 };
 
 #endif

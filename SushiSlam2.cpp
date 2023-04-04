@@ -4,7 +4,6 @@ Game* Game::instance;
 
 int main()
 {
-    const int MAX_ROUNDS = 3;
     const std::string names[10] = { "Sam",
                                    "Billy",
                                    "Jen",
@@ -17,6 +16,7 @@ int main()
                                    "Marge" };
     Game* g = Game::getInstance();
     g->initialize(names);
-    g->begin(MAX_ROUNDS);
+    g->begin();
+    std::cin.get();
     return 0;
 }

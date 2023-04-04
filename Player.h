@@ -25,6 +25,8 @@ public:
     CardCollection* getTableau() const;
     CardCollection* getHand() const;
     void setHand(CardCollection* hand);
+    void setScore(const int score);
+    int getScore() const;
 };
 
 #endif

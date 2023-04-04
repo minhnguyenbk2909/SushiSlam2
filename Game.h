@@ -8,9 +8,9 @@ class Game
 private:
     static Game* instance;
     int round = 0;
+    static const int MAX_ROUNDS = 3;
     Player* currentPlayer = NULL;
     CardCollection* deck = new CardCollection();
-    Game() {}
 
 public:
     ~Game();
@@ -18,7 +18,8 @@ public:
     void printLogo() const;
     void initialize(const std::string* names);
     void addCardsToDeck();
-    void begin(const int MAX_ROUNDS);
+    void progress(std::vector<int>&,std::vector<int>&);
+    void begin();
     void splitCards(Player* p);
     void printPlayerCards(Player* p);
     int getInput(int maxRange);
