@@ -80,5 +80,7 @@ CardCollection::~CardCollection()
 }
 void CardCollection::clear()
 {
+	for (int i = 0; i < cards.size();i++)
+		delete cards[i];
 	cards.clear();
 }

@@ -41,10 +41,37 @@ void Game::initialize(const std::string* names)
 }
 void Game::addCardsToDeck()
 {
-	deck->add(new Tempura(), TempuraCount)->add(new Sashimi(), SashimiCount)->add(new NigiriEgg(), NigiriEggCount);
-	deck->add(new NigiriSquid(), NigiriSquidCount)->add(new NigiriSalmon(), NigiriSalmonCount);
+	/*
+	Card* t = new Tempura();
+	deck->add(t, TempuraCount);
+	t = new Sashimi();
+	deck->add(t, SashimiCount);
+	t = new NigiriEgg();
+	deck->add(t, NigiriEggCount);
+	t = new NigiriSquid;
+	deck->add(new NigiriSquid(), NigiriSquidCount);
+	t = new NigiriSalmon();
+	deck->add(t, NigiriSalmonCount);
+	t = new MakiRoll2();
 	deck->add(new MakiRoll2(), MakiRoll2Count)->add(new MakiRoll3(), MakiRoll3Count)->add(new MakiRoll1(), MakiRoll1Count);
 	deck->add(new Dumpling(), DumplingCount);
+	*/
+	for (int i = 0; i < TempuraCount; i++)
+		deck->add(new Tempura());
+	for (int i = 0; i < SashimiCount; i++)
+		deck->add(new Sashimi());
+	for (int i = 0; i < NigiriEggCount; i++)
+		deck->add(new NigiriEgg());
+	for (int i = 0; i < NigiriSquidCount; i++)
+		deck->add(new NigiriSquid());
+	for (int i = 0; i < NigiriSalmonCount; i++)
+		deck->add(new NigiriSalmon());
+	for (int i = 0; i < MakiRoll1Count; i++)
+		deck->add(new MakiRoll1());
+	for (int i = 0; i < MakiRoll2Count; i++)
+		deck->add(new MakiRoll2());
+	for (int i = 0; i < MakiRoll3Count; i++)
+		deck->add(new MakiRoll3());
 }
 void test()
 {
