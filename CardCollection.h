@@ -9,6 +9,7 @@ class Card;
 class CardCollection
 {
 private:
+    // A vector holds pointers of card located on heap memory
     std::vector<Card*> cards;
 
 public:

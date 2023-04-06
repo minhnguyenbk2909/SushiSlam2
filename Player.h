@@ -11,7 +11,7 @@ private:
     CardCollection* tableau = new CardCollection();
     CardCollection* hand = new CardCollection();
     int score = 0;
-    Player* next = NULL;
+    Player* next = NULL; // pointer to other player
 
 public:
     Player(std::string name);

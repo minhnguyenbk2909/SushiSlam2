@@ -11,5 +11,5 @@ int Sashimi::score(CardCollection* tableau, CardCollection* other) const
     for (int i = 0; i < tableau->size(); i++)
         if (tableau->getCard(i)->type() == SashimiType)
             count += 1;
-    return (count / 3) * 10;
+    return (count / 3) * 10; // Use quotient to get each set of 3 sashimi
 }

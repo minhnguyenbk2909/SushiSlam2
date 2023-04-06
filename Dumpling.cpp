@@ -7,6 +7,7 @@ std::string Dumpling::toString() const
 }
 int Dumpling::score(CardCollection* tableau, CardCollection* other) const
 {
+    // Loop through tableau, if current card is DumplingType, increase count
     int count = 0;
     for (int i = 0; i < tableau->size(); i++)
         if (tableau->getCard(i)->type() == DumplingsType)

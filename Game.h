@@ -6,11 +6,12 @@
 class Game
 {
 private:
-    static Game* instance;
+    static Game* instance; // Private static member, this holds reference to the ONLY Game object
     int round = 0;
     static const int MAX_ROUNDS = 3;
     Player* currentPlayer = NULL;
     CardCollection* deck = new CardCollection();
+    Game(); // Private constructor preventing instantiate
 
 public:
     ~Game();

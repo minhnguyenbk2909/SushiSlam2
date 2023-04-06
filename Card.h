@@ -12,6 +12,9 @@ class Card
     CardType typ;
 
 protected:
+    // A specific variable for MakiRoll and Nigiri types, in which they need to differentiate each others
+    // E.g: MakiRoll has 1,2,3 variants, Nigiri has Egg,Salmon,Squid variants
+    // For every other types, this remains zero
     int count = 0;
 
 public:

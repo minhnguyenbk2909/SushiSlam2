@@ -12,6 +12,8 @@ std::string Nigiri::toString() const
     return "";
 }
 int Nigiri::score(CardCollection* tableau, CardCollection* other) const
+// count is also used as point
+// Egg has 1 point, Squid 2p, etc..
 {
     int point = 0;
     for (int i = 0; i < tableau->size(); i++)

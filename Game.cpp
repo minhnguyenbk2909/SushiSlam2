@@ -8,12 +8,19 @@
 #include <sstream>
 #include <algorithm>
 
+Game::Game()
+{
+
+}
+
 Game::~Game()
+// Freeing memory for 2 pointers
 {
 	delete currentPlayer;
 	delete deck;
 }
 Game* Game::getInstance()
+// OOP Singleton pattern, only through this static method call to get static Game object
 {
 	if (Game::instance == NULL)
 		instance = new Game();
@@ -33,6 +40,7 @@ void Game::initialize(const std::string* names)
 {
 	Player* p1 = new Player(names[rand() % 10]);
 	Player* p2 = new Player(names[rand() % 10]);
+	// Set each player to be the other's next, forming circular queue
 	p1->setNext(p2);
 	p2->setNext(p1);
 	currentPlayer = p1;
@@ -40,6 +48,7 @@ void Game::initialize(const std::string* names)
 	deck->shuffle();
 }
 void Game::addCardsToDeck()
+// Add default 88 cards to game deck
 {
 	/*
 	Card* t = new Tempura();
@@ -74,6 +83,7 @@ void Game::addCardsToDeck()
 		deck->add(new MakiRoll3());
 }
 void test()
+// External test function
 {
 	CardCollection g1, g2;
 	g1.add(new Dumpling(), 5)->add(new Tempura(), 2);
@@ -84,6 +94,7 @@ void Game::progress(std::vector<int>& this_score, std::vector<int>& other_score)
 {
 	std::cout << "\n";
 	std::cout << "~~~ round " << round << '/' << MAX_ROUNDS << " ~~~" << std::endl;
+	// Keep looping until size of hand is empty
 	while (1)
 	{
 		std::cout << "PLAYER " << currentPlayer->toString() << " TURN\n";
@@ -91,14 +102,19 @@ void Game::progress(std::vector<int>& this_score, std::vector<int>& other_score)
 		currentPlayer->printTableau();
 		printPlayerCards(currentPlayer);
 		askForCard(currentPlayer);
-		currentPlayer = currentPlayer->getNext();
+
+		currentPlayer = currentPlayer->getNext(); // Advance to the other player
+
 		std::cout << "PLAYER " << currentPlayer->toString() << " TURN\n";
 		std::cout << "Tableau:\n";
 		currentPlayer->printTableau();
 		printPlayerCards(currentPlayer);
 		askForCard(currentPlayer);
+
 		currentPlayer = currentPlayer->getNext();
-		swapHands(currentPlayer, currentPlayer->getNext());
+
+		swapHands(currentPlayer, currentPlayer->getNext()); // Once both players have picked their cards, swap the hands
+
 		if ((currentPlayer->getHand()->size() < 1) || (currentPlayer->getNext()->getHand()->size() < 1))
 			break;
 	}
@@ -108,24 +124,29 @@ void Game::progress(std::vector<int>& this_score, std::vector<int>& other_score)
 	std::cout << "\tPLAYER " << currentPlayer->toString() << " round score: " << ts << "\n";
 	std::cout << "\tPLAYER " << currentPlayer->getNext()->toString() << " round score: " << os << "\n";
 	round++;
+	// Add this round's score to each player
 	this_score.push_back(ts);
 	other_score.push_back(os);
 }
 void Game::begin()
 {
 	printLogo();
-	std::vector<int> this_score, other_score;
+	std::vector<int> this_score, other_score; // Since each rounds require distinct scoring number, vetor remembers each round score and adds up to final player score
 	round = 1;
 	// test();
 	for (int i = 0; i < MAX_ROUNDS; i++)
 	{
+		// Split the first 10 cards from deck to each players
 		splitCards(currentPlayer);
 		splitCards(currentPlayer->getNext());
+		// Clearing tableau, freeing card pointer memory
 		currentPlayer->getTableau()->clear();
 		currentPlayer->getNext()->getTableau()->clear();
+		// Progress the round
 		progress(this_score, other_score);
 	}
 	std::cout << "~~~ End of game! ~~~\n";
+	// Add up player final score from vector score
 	int ts = 0, os = 0;
 	for (int i = 0; i < this_score.size(); i++)
 		ts += this_score[i];
@@ -133,6 +154,8 @@ void Game::begin()
 		os += other_score[i];
 	std::cout << "\tPLAYER " << currentPlayer->toString() << " final score: " << ts << "\n";
 	std::cout << "\tPLAYER " << currentPlayer->getNext()->toString() << " final score: " << os << "\n";
+	currentPlayer->setScore(ts);
+	currentPlayer->getNext()->setScore(os);
 	if (ts == os)
 		std::cout << "GAME TIE!";
 	else if (ts > os)
@@ -141,6 +164,7 @@ void Game::begin()
 		std::cout << "PLAYER " << currentPlayer->getNext()->toString() << " WINS!";
 }
 void Game::splitCards(Player* p)
+// Split first 10 cards to player's hand
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -155,6 +179,7 @@ void Game::printPlayerCards(Player* p)
 		std::cout << i + 1 << ". " << p->getHand()->getCard(i)->toString() << std::endl;
 }
 int Game::getInput(int maxRange)
+// Get input from user, from [1,maxRange]
 {
 	int res = 0;
 	std::string line;
@@ -172,7 +197,7 @@ void Game::askForCard(Player* p)
 {
 	std::cout << "Select a card to add to your tableau:\n";
 	int inp = getInput(p->getHand()->size());
-	p->addCardsToTableau(p->getHand()->getCard(inp - 1));
+	p->addCardsToTableau(p->getHand()->getCard(inp - 1)); // Since input received from user ranges [1,maxRange], subtracting by 1 corresponds to card's index in vector
 }
 void Game::swapHands(Player* p1, Player* p2)
 {

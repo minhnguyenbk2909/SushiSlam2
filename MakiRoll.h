@@ -6,7 +6,7 @@
 class MakiRoll : public Card
 {
 protected:
-    MakiRoll(int count);
+    MakiRoll(int count); // Protected constructor, preventing instantiate abstract class
 
 public:
     std::string toString() const override;

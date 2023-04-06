@@ -6,7 +6,7 @@
 class Nigiri : public Card
 {
 protected:
-    Nigiri(int count);
+    Nigiri(int count); // Protected constructor
 
 public:
     std::string toString() const override;

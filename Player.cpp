@@ -5,6 +5,7 @@ Player::Player(std::string name)
     this->name = name;
 }
 Player::~Player()
+// Free memory of 3 heaps allocated
 {
     delete tableau;
     delete hand;
@@ -24,6 +25,7 @@ void Player::printTableau() const
     std::cout << tableau->toString();
 }
 int Player::calculateScore() const
+// Calculate score is tableau's responsibility
 {
     return tableau->calculate(tableau, next->tableau);
 }
